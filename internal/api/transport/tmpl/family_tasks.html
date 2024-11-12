@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f8e0e6; /* Светло-розовый фон */
+        }
+
+        .task-card {
+            background-color: #f0c8e0; /* Более насыщенный розовый */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(230, 100, 170, 0.2); /* Розовая тень */
+            margin-bottom: 15px;
+            width: 300px; /* Ширина карточки */
+            transition: box-shadow 0.3s; /* Переход для тени */
+        }
+
+        .task-card:hover {
+            box-shadow: 10px 10px 20px rgba(219, 112, 147, 0.5); /* Малиновая тень при наведении */
+        }
+
+        .button-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #d87093; /* Розовый цвет кнопки */
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #c7597e; /* Темнее розовый при наведении */
+        }
+
+        .button-container button:nth-child(2) { /* Вторая кнопка */
+            margin-left: 50px; /* Отступ 50 пикселей */
+        }
+
+        .task-lists {
+            display: flex; /* Размещение элементов в строку */
+        }
+
+        .task-list {
+            flex: 1; /* Занять равное пространство */
+            margin: 0 10px; /* Отступы между колонками */
+        }
+
+
+        h1 {
+            text-align: center; /* Центрируем заголовок */
+            color: #c7597e; /* Вишневый цвет */
+            font-size: 52px; /* Увеличиваем размер шрифта */
+            margin-bottom: 30px; /* Добавляем отступ снизу */
+            margin-top: 30px;
+        }
+    </style>
+    <script>
+        function addTask(button) {
+            const familyId = button.dataset.familyid;
+            window.location.href = `http://localhost:5051/add-task/${familyId}`;
+        }
+
+        function addMember(button) {
+            const familyId = button.dataset.familyid;
+            window.location.href = `http://localhost:5051/add-member/${familyId}`;
+        }
+
+        function deleteTask(familyId, taskName) {
+            // Отправка POST запроса на /delete-task/familyId/taskName
+            // Используйте fetch или XMLHttpRequest
+            fetch(`http://localhost:5051/delete-task/${familyId}/${taskName}`, {
+                method: 'POST'
+            }).then(response => {
+                console.log("Задача успешно удалена");
+                location.reload();
+            });
+        }
+
+    </script>
+</head>
+<body>
+<h1>Список задач</h1>
+
+<div class="button-container" style="display: flex; justify-content: center; align-items: center;">
+    <button onclick="addTask(this)" data-familyid="{{ .FamilyID }}">Добавить задачу</button>
+    <button onclick="addMember(this)" data-familyid="{{ .FamilyID }}">Добавить пользователя</button>
+</div>
+
+<div class="task-lists">
+    <div class="task-list">
+        <h2 style="color: #c7597e">Готовые к работе</h2>
+        <ul>
+            {{ range .ReadyForWork }}
+            <li class="task-card">
+                <b>{{ .Name }}</b>
+                <br>
+                Описание: {{ .Description }}
+                <br>
+                Приоритет: {{ .Priority }}
+                <br>
+                Часы: {{ .Points }}
+                <br>
+                Исполнитель: {{ .Assignee }}
+                <br>
+                Статус: {{ .Status }}
+                <br>
+                <div style="margin-top: 10px">
+                    <form method="POST" action="/update-status/{{ .FamilyID }}/{{ .Name }}">
+                        <input type="hidden" name="name" value="{{ .Name }}">
+                        <label>
+                            <select name="status">
+                                <option value="ready for work">READY FOR WORK</option>
+                                <option value="in progress">IN PROGRESS</option>
+                                <option value="done">DONE</option>
+                            </select>
+                        </label>
+                        <button type="submit" style="padding: 8px 16px; font-size: 14px; margin-top: 10px;">Изменить статус</button>
+                    </form>
+                </div>
+                <div class="task-actions" style="margin-top: 10px; font-size: 15px">
+                    <button onclick="deleteTask('{{ .FamilyID }}', '{{ .Name }}')" style="padding: 8px 16px; font-size: 14px;">Удалить</button>
+                </div>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+
+    <div class="task-list">
+        <h2 style="color: #c7597e">В работе</h2>
+        <ul>
+            {{ range .InProgress }}
+            <li class="task-card">
+                <b>{{ .Name }}</b>
+                <br>
+                Описание: {{ .Description }}
+                <br>
+                Приоритет: {{ .Priority }}
+                <br>
+                Часы: {{ .Points }}
+                <br>
+                Исполнитель: {{ .Assignee }}
+                <br>
+                Статус: {{ .Status }}
+                <div style="margin-top: 10px">
+                    <form method="POST" action="/update-status/{{ .FamilyID }}/{{ .Name }}">
+                        <input type="hidden" name="name" value="{{ .Name }}">
+                        <label>
+                            <select name="status">
+                                <option value="ready for work">READY FOR WORK</option>
+                                <option value="in progress">IN PROGRESS</option>
+                                <option value="done">DONE</option>
+                            </select>
+                        </label>
+                        <button type="submit" style="padding: 8px 16px; font-size: 14px; margin-top: 10px;">Изменить статус</button>
+                    </form>
+                </div>
+                <div class="task-actions" style="margin-top: 10px; font-size: 15px">
+                    <button onclick="deleteTask('{{ .FamilyID }}', '{{ .Name }}')" style="padding: 8px 16px; font-size: 14px;">Удалить</button>
+                </div>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+
+    <div class="task-list">
+        <h2 style="color: #c7597e">Завершенные</h2>
+        <ul>
+            {{ range .Done }}
+            <li class="task-card">
+                <b>{{ .Name }}</b>
+                <br>
+                Описание: {{ .Description }}
+                <br>
+                Приоритет: {{ .Priority }}
+                <br>
+                Часы: {{ .Points }}
+                <br>
+                Исполнитель: {{ .Assignee }}
+                <br>
+                Статус: {{ .Status }}
+                <div style="margin-top: 10px">
+                    <form method="POST" action="/update-status/{{ .FamilyID }}/{{ .Name }}">
+                        <input type="hidden" name="name" value="{{ .Name }}">
+                        <label>
+                            <select name="status">
+                                <option value="ready for work">READY FOR WORK</option>
+                                <option value="in progress">IN PROGRESS</option>
+                                <option value="done">DONE</option>
+                            </select>
+                        </label>
+                        <button type="submit" style="padding: 8px 16px; font-size: 14px; margin-top: 10px;">Изменить статус</button>
+                    </form>
+                </div>
+                <div class="task-actions" style="margin-top: 10px; font-size: 15px">
+                    <button onclick="deleteTask('{{ .FamilyID }}', '{{ .Name }}')" style="padding: 8px 16px; font-size: 14px;">Удалить</button>
+                </div>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

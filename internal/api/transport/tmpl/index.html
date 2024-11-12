@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Family Tasks Manager</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f8e0e6; /* Светло-розовый фон */
+        }
+
+        .nav-bar {
+            background-color: #f0c8e0; /* Более насыщенный розовый */
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-bar h1 {
+            margin: 0;
+            color: #c7597e; /* Вишневый цвет */
+            font-size: 24px; /* Увеличиваем размер шрифта */
+        }
+
+        .nav-bar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #d87093; /* Розовый цвет кнопки */
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-bar button:hover {
+            background-color: #c7597e; /* Темнее розовый при наведении */
+        }
+
+        .content {
+            margin-top: 40px;
+            padding: 20px;
+            /* max-width: 600px;  Удалили max-width */
+            margin-left: 60px;
+            display: flex; /* Добавляем flexbox для выравнивания */
+        }
+
+        .content > div {
+            width: 45%; /* Делим пространство пополам */
+        }
+
+        .content > div:first-child {
+            margin-right: 20px; /* Отступ между колонками */
+        }
+
+        .content > div > p {
+            margin: 0; /* Убираем отступы у параграфов */
+        }
+
+        .content > div:first-child > p {
+            font-size: 52px;
+            color: #c7597e;
+        }
+
+        .content > div:last-child > p {
+            font-size: 28px;
+            text-align: left;
+        }
+
+        h1 {
+            text-align: center; /* Центрируем заголовок */
+            color: #c7597e; /* Вишневый цвет */
+            font-size: 32px; /* Увеличиваем размер шрифта */
+            margin-bottom: 20px; /* Добавляем отступ снизу */
+        }
+
+        .info{
+            background-color: #f0c8e0; /* Более насыщенный розовый */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(230, 100, 170, 0.2); /* Розовая тень */
+            margin-bottom: 15px;
+            transition: box-shadow 0.3s; /* Переход для тени */
+        }
+    </style>
+</head>
+<body>
+<div class="nav-bar">
+    <h1>FAMILY TASKS MANAGER</h1>
+    <div>
+        <button onclick="window.location.href='http://localhost:5051/register'">Зарегистрироваться</button>
+        <button onclick="window.location.href='http://localhost:5051/login'">Войти</button>
+    </div>
+</div>
+
+<div class="content">
+    <div>
+        <p>Добро пожаловать в Family Tasks Manager!</p>
+<!--        <img src="internal/api/transport/tmpl/png-transparent-cat-animal-lovely-cat" alt="Милый кот">-->
+    </div>
+    <div class="info">
+        <p>Это приложение поможет вам организовать домашние дела, назначить задачи для каждого члена семьи и отслеживать их
+            выполнение.
+            С помощью Family Tasks Manager вы сможете:</p>
+
+        <p>Создавать списки задач для всей семьи
+            Назначать задачи конкретным членам семьи
+            Устанавливать дедлайны для задач
+            Отслеживать прогресс выполнения задач
+            Общаться с членами семьи по поводу задач
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f8e0e6; /* Светло-розовый фон */
+        }
+
+        .form-card {
+            background-color: #f0c8e0; /* Более насыщенный розовый */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(230, 100, 170, 0.2); /* Розовая тень */
+            width: 350px; /* Ширина карточки */
+            margin: 20px auto; /* Центрирование карточки */
+        }
+
+        .form-card label {
+            display: block; /* Поля с новой строки */
+            margin-bottom: 5px;
+        }
+
+        .form-card input[type="text"],
+        .form-card select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .form-card button[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #d87093; /* Розовый цвет кнопки */
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .form-card button[type="submit"]:hover {
+            background-color: #c7597e; /* Темнее розовый при наведении */
+        }
+    </style>
+</head>
+<body>
+<h1>Добавление Задачи</h1>
+
+<div class="form-card">
+    <form method="POST" action="/add-task/{{ .FamilyID }}">
+        <label for="name">Название:</label>
+        <input type="text" id="name" name="name">
+
+        <label for="description">Описание:</label>
+        <input type="text" id="description" name="description">
+
+        <label for="priority">Приоритет:</label>
+        <select id="priority" name="priority">
+            <option value="high">HIGH</option>
+            <option value="medium">MEDIUM</option>
+            <option value="low">LOW</option>
+        </select>
+
+        <label for="points">Часы:</label>
+        <input type="text" id="points" name="points">
+
+        <label for="assignee">Исполнитель:</label>
+        <input type="text" id="assignee" name="assignee">
+
+        <label for="status">Статус:</label>
+        <select id="status" name="status">
+            <option value="ready for work">READY FOR WORK</option>
+            <option value="in progress">IN PROGRESS</option>
+            <option value="done">DONE</option>
+        </select>
+
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+</body>
+</html>
