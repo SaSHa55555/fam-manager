@@ -16,7 +16,7 @@ services:
       - microservices
 
   app:
-    image: mealekks/fam-manager-app:latest
+    build: .
     container_name: manager_app
     ports:
       - "5051:5051"
