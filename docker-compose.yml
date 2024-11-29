@@ -12,3 +12,20 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
+    networks:
+      - microservices
+
+  app:
+    image: mealekks/fam-manager-app:latest
+    container_name: manager_app
+    ports:
+      - "5051:5051"
+    networks:
+      - microservices
+    depends_on:
+      - postgres
+    restart: always
+
+networks:
+  microservices:
+    name: microservices

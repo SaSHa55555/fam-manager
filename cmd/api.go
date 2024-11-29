@@ -17,7 +17,7 @@ type Api struct {
 func ConfigureApi() (*Api, error) {
 	db, err := otelsqlx.Connect(
 		"pgx",
-		"postgres://postgres:password@localhost:5432/manager",
+		"postgres://postgres:password@postgres:5432/manager",
 		otelsql.WithDBName("manager"),
 	)
 	if err != nil {
