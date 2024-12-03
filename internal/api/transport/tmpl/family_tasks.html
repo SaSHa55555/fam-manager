@@ -68,18 +68,16 @@
     <script>
         function addTask(button) {
             const familyId = button.dataset.familyid;
-            window.location.href = `http://localhost:5051/add-task/${familyId}`;
+            window.location.href = `/add-task/${familyId}`;
         }
 
         function addMember(button) {
             const familyId = button.dataset.familyid;
-            window.location.href = `http://localhost:5051/add-member/${familyId}`;
+            window.location.href = `/add-member/${familyId}`;
         }
 
         function deleteTask(familyId, taskName) {
-            // Отправка POST запроса на /delete-task/familyId/taskName
-            // Используйте fetch или XMLHttpRequest
-            fetch(`http://localhost:5051/delete-task/${familyId}/${taskName}`, {
+            fetch(`/delete-task/${familyId}/${taskName}`, {
                 method: 'POST'
             }).then(response => {
                 console.log("Задача успешно удалена");

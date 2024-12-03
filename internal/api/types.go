@@ -29,17 +29,6 @@ type Task struct {
 	FamilyID    int      `json:"family_id" db:"family_id"`
 }
 
-type Member struct {
-	ID   int    `json:"id" db:"id"`
-	Name string `json:"name" db:"name"`
-}
-
-type Family struct {
-	ID   int    `json:"id" db:"id"`
-	Name string `json:"name" db:"name"`
-	PSWD string `json:"pswd" db:"pswd"`
-}
-
 var (
 	ErrFamilyExists = errors.New("family already exists")
 	ErrMemberExists = errors.New("member already exists")
